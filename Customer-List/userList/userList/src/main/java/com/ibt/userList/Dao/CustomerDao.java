@@ -31,4 +31,6 @@ public class CustomerDao {
     public void deleteCustomerById(Integer userId){
         customerRepository.deleteById(userId);
     }
+
+    public Customer getCustomerByName(String name){return customerRepository.findByName(name);}
 }

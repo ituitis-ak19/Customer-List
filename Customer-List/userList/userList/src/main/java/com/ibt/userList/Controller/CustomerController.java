@@ -107,4 +107,19 @@ public class CustomerController {
                 new HttpHeaders(),
                 HttpStatus.CREATED);
     }
+
+    @Operation(summary= "Delete Customer by id")
+    @ApiResponses(
+            value={
+                    @ApiResponse(responseCode = "204", description = "Delete Customer by id" ),
+                    @ApiResponse(responseCode = "404", description = "Customer not found"),
+                    @ApiResponse(responseCode = "400", description = "Incalid id supplied"),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    @DeleteMapping(value = "/customer/{id}")
+    public ResponseEntity<Void> deleteCustomer(@NotNull @PathVariable("id") @Parameter(name = "id", example = "1", description = "Customer Id")Integer id){
+        customerService.deleteCustomerById(id);
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NO_CONTENT);
+    }
 }

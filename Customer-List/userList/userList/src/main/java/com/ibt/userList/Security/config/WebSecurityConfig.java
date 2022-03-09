@@ -26,13 +26,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**","/swagger-ui.html")
                 .permitAll()
-                .antMatchers("/customer")
-                .hasAnyAuthority("User")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("http://localhost:3000/", true)
+                .defaultSuccessUrl("http://localhost:8080/customer", true)
                 .failureUrl("http://localhost:3000/login");
 
     }

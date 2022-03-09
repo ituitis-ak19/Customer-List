@@ -6,6 +6,7 @@ import com.ibt.userList.Exception.EntityNotFoundException;
 import com.ibt.userList.Model.Customer;
 import com.ibt.userList.Util.EntityConverter;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,10 @@ public class CustomerService {
     }
 
     public CustomerDto save(CustomerDto customerDto){
+        Customer _customer = customerDao.getCustomerByName(customerDto.getName());
+        if(_customer !=null){
+            throw new NotFoundException("Name has already taken");
+        }
         Customer customer = EntityConverter.convertCustomerDtoToCustomerFunction.apply(customerDto);
         customer = customerDao.createCustomer(customer);
         return  EntityConverter.convertCustomerToCustomerDtoFunction.apply(customer);
@@ -41,7 +46,8 @@ public class CustomerService {
     public void deleteCustomerById(Integer userId){
         Customer customer = customerDao.getCustomerById(userId);
         if(customer == null){
-            throw new EntityNotFoundException(Customer.class, userId.toString());
+            throw new NotFoundException("User with given id can not found");
         }
+        customerDao.deleteCustomerById(userId);
     }
 }
