@@ -113,7 +113,7 @@ public class CustomerController {
             value={
                     @ApiResponse(responseCode = "204", description = "Delete Customer by id" ),
                     @ApiResponse(responseCode = "404", description = "Customer not found"),
-                    @ApiResponse(responseCode = "400", description = "Incalid id supplied"),
+                    @ApiResponse(responseCode = "400", description = "Invalid id supplied"),
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             }
     )

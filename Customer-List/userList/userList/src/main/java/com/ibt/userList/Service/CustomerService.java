@@ -46,7 +46,7 @@ public class CustomerService {
     public void deleteCustomerById(Integer userId){
         Customer customer = customerDao.getCustomerById(userId);
         if(customer == null){
-            throw new NotFoundException("User with given id can not found");
+            throw new EntityNotFoundException(Customer.class, userId.toString());
         }
         customerDao.deleteCustomerById(userId);
     }
