@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/customer/**","/swagger-ui/**","/swagger-ui.html")
+                .antMatchers("/customer/**","/swagger-ui/**","/swagger-ui.html","/v3/api-docs/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -33,11 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("http://localhost:8080/customer", true)
                 .failureUrl("http://localhost:3000/login");
 
-    }
+    }//swagger hariç tüm isteklerin giriş yapmış kullanıcı tarafından gelmesi için gerekli ayarları ve giriş durumuna göre yönlendireceğimiz url i ayarlıyoruz
 
     @Override
     public  void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
+        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");//swagger istekleri için websecurity configi de ayarlamamız gerekiyor
     }
 
     @Override

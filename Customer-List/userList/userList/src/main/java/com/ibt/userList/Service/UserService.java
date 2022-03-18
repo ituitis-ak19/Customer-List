@@ -30,16 +30,16 @@ public class UserService implements UserDetailsService {
     }
 
     public String signUpUser(User user){
-        boolean userExist = userRepository.findByEmail(user.getEmail())
+        boolean userExist = userRepository.findByEmail(user.getEmail()) //kullanıcının unique özelliği olan email ile kullanıcı var mı diye kontrol ediyoruz
                 .isPresent();
-        if(userExist){
-            throw new IllegalStateException("email already taken");
+        if(userExist){//varsa
+            throw new IllegalStateException("email already taken");//hata fırlatıyoruz
         }
-        String encodedPassword= bCryptPasswordEncoder.encode(user.getPassword());
+        String encodedPassword= bCryptPasswordEncoder.encode(user.getPassword());//parolasını hashliyoruz
 
-        user.setPassword(encodedPassword);
+        user.setPassword(encodedPassword);//hashlenmiş parolayı set ediyoruz
 
-        userRepository.save(user);
+        userRepository.save(user);//ve kaydediyoruz
 
         return user.getEnabled().toString();
     }
